@@ -1,3 +1,5 @@
+console.log('Loading Database');
+
 
 export const USERS = {
   1: {
@@ -14,6 +16,7 @@ export const USERS = {
   }
 };
 
+console.log('Loading Database2');
 
 export const COURSES: any = {
 
@@ -705,24 +708,35 @@ export const LESSONS = {
   }
 
 };
+console.log('Loading Database3');
+
 
 export function findAllUsers() {
   return <any[]> Object.values(USERS);
 }
 
+console.log('Loading Database4');
+
+
 export function findAllCourses() {
   return Object.values(COURSES);
 }
+
+console.log('Loading Database5');
 
 
 export function findCourseById(courseId: number) {
   return COURSES[courseId];
 }
 
+console.log('Loading Database6');
+
+
 export function findLessonsForCourse(courseId: number) {
   return Object.values(LESSONS).filter(lesson => lesson.courseId == courseId);
 }
 
+console.log('Loading Database7');
 
 export function authenticate(email: string, password: string) {
 
@@ -735,3 +749,5 @@ export function authenticate(email: string, password: string) {
   }
 
 }
+
+console.log('Loading Database8');

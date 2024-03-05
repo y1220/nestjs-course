@@ -25,7 +25,7 @@ var ObjectId = require('mongodb').ObjectID;
 *
 *****************************************************************************************************/
 
-const MONGODB_CONNECTION_URL = 'mongodb+srv://admin:passwordyui@clusternestmongo.jsrpdo3.mongodb.net/?retryWrites=true&w=majority&appName=ClusterNestMongo';
+const MONGODB_CONNECTION_URL = 'mongodb+srv://yuiwatanabe:u4RN1zoZ5WXmw7Fn@clusternestmongo.jsrpdo3.mongodb.net/?retryWrites=true&w=majority&appName=ClusterNestMongo';
 
 // Database Name
 const dbName = 'nestjs-course';
@@ -36,12 +36,15 @@ const dbName = 'nestjs-course';
 
 // Create a new MongoClient
 const client = new MongoClient(MONGODB_CONNECTION_URL);
-
-try {
-  client.connect(MONGODB_CONNECTION_URL, {
+async function connectToDb() {
+  return await client.connect(MONGODB_CONNECTION_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
   });
+}
+
+try {
+  connectToDb();
   console.log('Connected to MongoDB successfully!');
 } catch (error) {
   console.error('Error connecting to MongoDB:', error);
@@ -79,47 +82,47 @@ try {
 
       console.log("new course id", courseId);
 
-      const lessons = findLessonsForCourse(course.id);
+      // const lessons = findLessonsForCourse(course.id);
 
-      for (let j = 0; j< lessons.length; j++) {
+      // for (let j = 0; j< lessons.length; j++) {
 
-        const lesson = lessons[j];
+      //   const lesson = lessons[j];
 
-        const newLesson:any = {...lesson};
-        delete newLesson.id;
-        delete newLesson.courseId;
-        newLesson.course = courseId;
+      //   const newLesson:any = {...lesson};
+      //   delete newLesson.id;
+      //   delete newLesson.courseId;
+      //   //newLesson.course = new ObjectId(courseId);
 
-        console.log("Inserting lesson", newLesson);
+      //   console.log("Inserting lesson", newLesson);
 
-        db.collection("lessons").insertOne(newLesson);
+      //   db.collection("lessons").insertOne(newLesson);
 
-      }
+      // }
 
     }
 
     const users = findAllUsers();
 
-    console.log("Inserting users " + users.length);
+    // console.log("Inserting users " + users.length);
 
-    for (let j = 0; j< users.length; j++) {
+    // for (let j = 0; j< users.length; j++) {
 
-      const user = users[j];
+    //   const user = users[j];
 
-      const newUser:any = {...user};
-      delete newUser.id;
+    //   const newUser:any = {...user};
+    //   delete newUser.id;
 
-      const hashPassword = util.promisify(password(newUser.password).hash);
+    //   const hashPassword = util.promisify(password(newUser.password).hash);
 
-      newUser.passwordHash = hashPassword();
+    //   newUser.passwordHash = hashPassword();
 
-      delete newUser.password;
+    //   delete newUser.password;
 
-      console.log("Inserting user", newUser);
+    //   console.log("Inserting user", newUser);
 
-      db.collection("users").insertOne(newUser);
+    //   db.collection("users").insertOne(newUser);
 
-    }
+    // }
 
     console.log('Finished uploading data, creating indexes.');
 
@@ -128,8 +131,8 @@ try {
     console.log("Finished creating indexes, exiting.");
 
 
-    // client.close();
-    // process.exit();
+    //client.close();
+    //process.exit();
 
   }
   catch (error) {
